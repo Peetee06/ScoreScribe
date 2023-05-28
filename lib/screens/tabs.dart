@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:spielblock/data/dummy_games.dart';
-import 'package:spielblock/widgets/games_list.dart';
+import 'package:spielblock/screens/new_game.dart';
+import 'package:spielblock/widgets/games.dart';
 
-class GamesScreen extends StatefulWidget {
-  const GamesScreen({super.key});
+class Tabs extends StatefulWidget {
+  const Tabs({super.key});
 
   @override
-  State<GamesScreen> createState() => _GamesScreenState();
+  State<Tabs> createState() => _TabsState();
 }
 
-class _GamesScreenState extends State<GamesScreen> {
+class _TabsState extends State<Tabs> {
   int _currentPageIndex = 0;
 
+  // TODO: Refactor this to more nicely handle the different pages.
   final List<Widget> _pages = <Widget>[
-    GamesList(dummyGames),
-    const Center(child: Text('New Game')),
+    const Games(),
+    const Text('Dummy'),
     const Center(child: Text('Settings')),
   ];
 
   void _selectPage(int index) {
+    if (index == 1) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const NewGameScreen(),
+        ),
+      );
+      index = _currentPageIndex;
+    }
     setState(() {
       _currentPageIndex = index;
     });

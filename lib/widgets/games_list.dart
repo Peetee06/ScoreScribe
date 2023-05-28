@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:spielblock/models/game.dart';
 import 'package:spielblock/screens/game.dart';
+import 'package:spielblock/widgets/edit_game_name.dart';
 
 class GamesList extends StatelessWidget {
-  const GamesList(this.games, {super.key});
+  const GamesList(this.games,
+      {super.key, required this.onRemoveGame, required this.onUpdateGame});
 
   final List<Game> games;
+  final void Function(Game game) onRemoveGame;
+  final void Function(Game game) onUpdateGame;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class GamesList extends StatelessWidget {
           return Dismissible(
             key: ValueKey(game.id),
             onDismissed: (direction) {
-              games.remove(game);
+              onRemoveGame(game);
             },
             background: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -59,7 +63,20 @@ class GamesList extends StatelessWidget {
                 ),
                 trailing: IconButton(
                   icon: const Icon(Icons.edit),
-                  onPressed: () {},
+                  onPressed: () async {
+                    void onNameChanged(String newName) {
+                      game.name = newName;
+                      onUpdateGame(game);
+                    }
+
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return EditGameNameAlertDialog(
+                            onNameChanged: onNameChanged);
+                      },
+                    );
+                  },
                 ),
                 onTap: () {
                   Navigator.of(context).push(

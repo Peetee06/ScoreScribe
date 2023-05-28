@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:spielblock/screens/games.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spielblock/data/dummy_games.dart';
+import 'package:spielblock/screens/tabs.dart';
+import 'package:spielblock/providers/games_provider.dart';
 import 'color_schemes.g.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
+  addDummyData();
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -17,7 +20,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       themeMode: ThemeMode.light,
-      home: const GamesScreen(),
+      home: const Tabs(),
     );
+  }
+}
+
+void addDummyData() {
+  final gamesNotifier = GamesNotifier();
+  for (final game in dummyGames) {
+    gamesNotifier.addGame(game);
   }
 }
