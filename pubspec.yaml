@@ -40,6 +40,8 @@ dependencies:
   path_provider: ^2.0.15
   flutter_riverpod: ^2.3.6
   path: ^1.8.3
+  linked_scroll_controller: ^0.2.0
+  custom_refresh_indicator: ^2.0.1
 
 dev_dependencies:
   flutter_test:

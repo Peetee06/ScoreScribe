@@ -20,17 +20,42 @@ class _TabsState extends State<Tabs> {
   ];
 
   void _selectPage(int index) {
+    int animationDuration = 200;
     if (index == 1) {
       Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => const NewGameScreen(),
+        PageRouteBuilder(
+          pageBuilder: (ctx, animation, secondaryAnimation) =>
+              const NewGameScreen(),
+          transitionsBuilder: (ctx, animation, secondaryAnimation, child) {
+            var begin = 0.0;
+            var end = 1.0;
+            var curve = Curves.ease;
+
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return ScaleTransition(
+              scale: animation.drive(tween),
+              child: child,
+            );
+          },
+          transitionDuration: Duration(milliseconds: animationDuration),
         ),
       );
-      index = _currentPageIndex;
+
+      // Go back to games screen when returning from new game screen.
+      // wait 200 miliseconds to allow the animation to finish.
+      Future.delayed(Duration(milliseconds: animationDuration), () {
+        setState(() {
+          _currentPageIndex = 0;
+        });
+      });
+      index = 0;
+    } else {
+      setState(() {
+        _currentPageIndex = index;
+      });
     }
-    setState(() {
-      _currentPageIndex = index;
-    });
   }
 
   @override

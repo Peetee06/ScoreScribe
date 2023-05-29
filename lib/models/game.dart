@@ -12,9 +12,16 @@ class Game {
   Game(
     this.name, {
     this.playerNames = const [],
-    this.rounds = const [],
+    List<Round>? rounds,
     String? id,
-  }) : id = id ?? generateUuid();
+  })  : id = id ?? generateUuid(),
+        rounds = [
+          Round(
+            {
+              for (final name in playerNames) name: 0,
+            },
+          ),
+        ];
 
   Map<String, dynamic> toMap() {
     return {

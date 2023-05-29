@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:spielblock/widgets/new_game_missing_input_alert.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spielblock/models/game.dart';
+import 'package:spielblock/providers/games_provider.dart';
+import 'package:spielblock/screens/game.dart';
+import 'package:spielblock/widgets/alerts/leave_new_game_screen.dart';
+import 'package:spielblock/widgets/alerts/new_game_missing_input_alert.dart';
 
-class NewGameScreen extends StatefulWidget {
+class NewGameScreen extends ConsumerStatefulWidget {
   const NewGameScreen({super.key});
 
   @override
-  State<NewGameScreen> createState() => _NewGameScreenState();
+  ConsumerState<NewGameScreen> createState() => _NewGameScreenState();
 }
 
-class _NewGameScreenState extends State<NewGameScreen> {
-  ScrollController _scrollController = ScrollController();
+class _NewGameScreenState extends ConsumerState<NewGameScreen> {
+  final _scrollController = ScrollController();
   final TextEditingController _gameNameController = TextEditingController();
   final _playerControllers = [];
   final _focusNodes = [];
   bool _isAddingNewField = false;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -100,66 +106,183 @@ class _NewGameScreenState extends State<NewGameScreen> {
     });
   }
 
+  bool _hasInputs() {
+    final gameName = _gameNameController.text.trim();
+    final playerNames = _playerControllers
+        .map((controller) => controller.text.trim().toString())
+        .where((playerName) => playerName.isNotEmpty)
+        .toList();
+
+    return !(gameName.isEmpty && playerNames.isEmpty);
+  }
+
+  Future<bool> _onWillPop() async {
+    if (_hasInputs() && !_isSaving) {
+      // Show an alert dialog and wait for the user's decision.
+      for (final focusNode in _focusNodes) {
+        focusNode.unfocus();
+      }
+      final confirm = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return const LeaveNewGameScreenAlertDialog();
+        },
+      );
+
+      return confirm ?? false;
+    }
+
+    // No changes, allow navigation without showing the alert.
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('New Game',
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                )),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              controller: _scrollController,
-              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0,
-                  MediaQuery.of(context).padding.bottom + 40.0),
-              children: <Widget>[
-                TextField(
-                  controller: _gameNameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Game name',
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('New Game',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  )),
+        ),
+        body: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: _gameNameController,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                decoration: InputDecoration(
+                  labelText: 'Game Name',
+                  labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onPrimaryContainer
+                            .withOpacity(0.5),
+                      ),
+                  fillColor: Theme.of(context).colorScheme.primaryContainer,
+                  filled: true,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        width: 2.0),
                   ),
                 ),
-                ..._playerControllers.asMap().entries.map((entry) {
-                  int idx = entry.key;
-                  TextEditingController controller = entry.value;
-                  return TextField(
-                    controller: controller,
-                    focusNode: _focusNodes[idx],
-                    decoration: InputDecoration(
-                      labelText: 'Player ${idx + 1}',
-                    ),
-                    enabled: idx != _playerControllers.length - 1 ||
-                        idx == 0 ||
-                        (idx == _playerControllers.length - 1 &&
-                            _playerControllers[idx - 1].text.isNotEmpty),
-                  );
-                }).toList(),
-              ],
-            ),
-          ),
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: _saveGame,
-                child: Text('Play!',
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        )),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0,
+                    MediaQuery.of(context).padding.bottom + 40.0),
+                itemCount: _playerControllers.length,
+                itemBuilder: (context, index) {
+                  final controller = _playerControllers[index];
+                  return Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 4.0),
+                    padding: const EdgeInsets.only(left: 16.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                              bottom: 16.0,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .tertiaryContainer,
+                            ),
+                            child: TextField(
+                              controller: controller,
+                              focusNode: _focusNodes[index],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiaryContainer,
+                                  ),
+                              decoration: InputDecoration(
+                                labelText: 'Player ${index + 1}',
+                                labelStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onTertiaryContainer
+                                          .withOpacity(0.5),
+                                    ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onTertiaryContainer,
+                                      width: 2.0),
+                                ),
+                              ),
+                              enabled: index != _playerControllers.length - 1 ||
+                                  index == 0 ||
+                                  (index == _playerControllers.length - 1 &&
+                                      _playerControllers[index - 1]
+                                          .text
+                                          .isNotEmpty),
+                            ),
+                          ),
+                        ),
+                        (_playerControllers.length > 1 &&
+                                index != _playerControllers.length - 1)
+                            ? IconButton(
+                                onPressed: () {
+                                  for (final focusNode in _focusNodes) {
+                                    focusNode.unfocus();
+                                  }
+                                  setState(() {
+                                    _playerControllers.removeAt(index);
+                                    _focusNodes.removeAt(index);
+                                  });
+                                },
+                                icon: const Icon(Icons.clear),
+                              )
+                            : const SizedBox(width: 48.0),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            SafeArea(
+              child: Container(
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  onPressed: _saveGame,
+                  child: Text('Play!',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                          )),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -168,7 +291,7 @@ class _NewGameScreenState extends State<NewGameScreen> {
     // Implement your game saving logic here.
     final gameName = _gameNameController.text.trim();
     final playerNames = _playerControllers
-        .map((controller) => controller.text.trim())
+        .map((controller) => controller.text.trim().toString())
         .where((playerName) => playerName.isNotEmpty)
         .toList();
 
@@ -188,7 +311,14 @@ class _NewGameScreenState extends State<NewGameScreen> {
             return MissingInputsAlert(message: message);
           });
     } else {
-      print('Saving');
+      final newGame = Game(gameName, playerNames: playerNames);
+      ref.read(gamesProvider.notifier).addGame(newGame);
+      _isSaving = true;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => GameScreen(game: newGame),
+        ),
+      );
     }
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spielblock/models/game.dart';
 import 'package:spielblock/screens/game.dart';
-import 'package:spielblock/widgets/edit_game_name.dart';
+import 'package:spielblock/widgets/alerts/edit_game_name.dart';
+import 'package:spielblock/widgets/animated_arrow.dart';
 
 class GamesList extends StatelessWidget {
   const GamesList(this.games,
@@ -14,13 +15,26 @@ class GamesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (games.isEmpty) {
-      return Center(
-        child: Text(
-          'No games yet, start a new one now!',
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(color: Theme.of(context).colorScheme.onBackground),
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 8.0),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                'No games yet.\nStart a new one now!',
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(color: Theme.of(context).colorScheme.primary),
+              ),
+            ),
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedArrow(),
+            ),
+          ],
         ),
       );
     } else {

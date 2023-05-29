@@ -13,10 +13,7 @@ class MissingInputsAlert extends StatelessWidget {
     if (Platform.isIOS) {
       return CupertinoAlertDialog(
         title: const Text('Missing information'),
-        content: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(message),
-        ),
+        content: Text(message),
         actions: <Widget>[
           CupertinoDialogAction(
             child: const Text('OK'),
