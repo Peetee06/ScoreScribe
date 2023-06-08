@@ -4,13 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EditGameNameAlertDialog extends StatelessWidget {
-  const EditGameNameAlertDialog({super.key, required this.onNameChanged});
+  const EditGameNameAlertDialog({
+    super.key,
+    required this.onNameChanged,
+    required this.startingText,
+  });
 
   final void Function(String name) onNameChanged;
+  final String startingText;
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
+    final TextEditingController controller =
+        TextEditingController(text: startingText);
 
     return Platform.isIOS
         ? CupertinoAlertDialog(
