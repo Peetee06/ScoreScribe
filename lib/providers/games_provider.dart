@@ -9,12 +9,12 @@ class GamesNotifier extends StateNotifier<List<Game>> {
   Future<void> getGames() async {
     List<Map<String, dynamic>> gamesData =
         await DatabaseHelper.instance.query();
-    final places = gamesData
+    final games = gamesData
         .map(
           (row) => Game.fromMap(row),
         )
         .toList();
-    state = places;
+    state = games;
   }
 
   void addGame(Game game) async {
