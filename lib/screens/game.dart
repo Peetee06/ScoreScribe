@@ -220,7 +220,49 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                   ),
                                 ),
                               ),
-                              if (rounds.length == 1)
+                              if (rounds.length == 1 &&
+                                  rounds[0]
+                                      .scores
+                                      .values
+                                      .every((element) => element == 0))
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 20.0),
+                                          child: Text(
+                                            'Tab to add score',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 88),
+                                        child: SizedBox(
+                                            height: 48,
+                                            child: AnimatedArrow(
+                                              reversed: true,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              if (rounds.length == 1 &&
+                                  !rounds[0]
+                                      .scores
+                                      .values
+                                      .every((element) => element == 0))
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Row(
@@ -228,7 +270,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                       const Expanded(
                                         child: SizedBox(
                                           height: 48,
-                                          child: AnimatedArrowLeftToRight(),
+                                          child: AnimatedArrow(),
                                         ),
                                       ),
                                       Padding(

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AnimatedArrowLeftToRight extends StatefulWidget {
-  const AnimatedArrowLeftToRight({super.key});
+class AnimatedArrow extends StatefulWidget {
+  const AnimatedArrow({super.key, this.reversed});
+
+  final bool? reversed;
 
   @override
-  State<AnimatedArrowLeftToRight> createState() =>
-      _AnimatedArrowLeftToRightState();
+  State<AnimatedArrow> createState() => _AnimatedArrowState();
 }
 
-class _AnimatedArrowLeftToRightState extends State<AnimatedArrowLeftToRight>
+class _AnimatedArrowState extends State<AnimatedArrow>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -42,17 +43,20 @@ class _AnimatedArrowLeftToRightState extends State<AnimatedArrowLeftToRight>
 
   @override
   Widget build(BuildContext context) {
+    print(widget.reversed);
     return // You can adjust this
         Transform.translate(
       offset: Offset(_animation.value, 0),
       child: RotatedBox(
         quarterTurns: 1,
         child: Icon(
-          Icons.arrow_downward,
+          widget.reversed == null
+              ? Icons.arrow_downward
+              : Icons.pan_tool_alt_outlined,
           size: 36,
           color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
-      ), // adjust the size as needed
+      ),
     );
   }
 }

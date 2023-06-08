@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spielblock/screens/new_game.dart';
+import 'package:spielblock/screens/settings.dart';
 import 'package:spielblock/widgets/games.dart';
 
 class Tabs extends StatefulWidget {
@@ -16,7 +17,12 @@ class _TabsState extends State<Tabs> {
   final List<Widget> _pages = <Widget>[
     const Games(),
     const Text('Dummy'),
-    const Center(child: Text('Settings')),
+    const SettingsScreen(),
+  ];
+  final List<String> _pageTitles = <String>[
+    'Games',
+    'New Game',
+    'Settings',
   ];
 
   void _selectPage(int index) {
@@ -62,7 +68,7 @@ class _TabsState extends State<Tabs> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Games',
+          title: Text(_pageTitles[_currentPageIndex],
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
