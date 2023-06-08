@@ -15,13 +15,14 @@ class Game {
     List<Round>? rounds,
     String? id,
   })  : id = id ?? generateUuid(),
-        rounds = [
-          Round(
-            {
-              for (final name in playerNames) name: 0,
-            },
-          ),
-        ];
+        rounds = rounds ??
+            [
+              Round(
+                {
+                  for (final name in playerNames) name: 0,
+                },
+              ),
+            ];
 
   Map<String, dynamic> toMap() {
     return {
