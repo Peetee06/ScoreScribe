@@ -87,7 +87,9 @@ class GamesList extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return EditGameNameAlertDialog(
-                            onNameChanged: onNameChanged);
+                          onNameChanged: onNameChanged,
+                          startingText: game.name,
+                        );
                       },
                     );
                   },
