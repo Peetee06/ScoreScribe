@@ -22,7 +22,7 @@ class _AnimatedArrowLeftToRightState extends State<AnimatedArrowLeftToRight>
       duration: const Duration(milliseconds: 500),
     );
 
-    _animation = Tween<double>(begin: 30, end: 10).animate(
+    _animation = Tween<double>(begin: 15, end: -10).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Curves.easeOut,
