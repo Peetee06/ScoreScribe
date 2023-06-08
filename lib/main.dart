@@ -7,7 +7,6 @@ import 'color_schemes.g.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
-  addDummyData();
 }
 
 class MyApp extends StatelessWidget {
@@ -22,12 +21,5 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       home: const Tabs(),
     );
-  }
-}
-
-void addDummyData() {
-  final gamesNotifier = GamesNotifier();
-  for (final game in dummyGames) {
-    gamesNotifier.addGame(game);
   }
 }
