@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:spielblock/models/game.dart';
+import 'package:spielblock/models/player_score.dart';
 import 'package:spielblock/providers/games_provider.dart';
+import 'package:spielblock/screens/scoreboard.dart';
 import 'package:spielblock/widgets/animated_arrow_right_to_left.dart';
 
 import '../models/round.dart';
@@ -81,24 +83,6 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                         getPlayerScore(rounds, currentPlayer);
                     final ScrollController scrollController =
                         _controllers[index];
-                    scrollController.addListener(() {
-                      if (scrollController.offset >=
-                          scrollController.position.maxScrollExtent) {
-                        // setState(() {
-                        //   message = "reach the end right";
-                        // });
-                        print('reach the end right');
-                      }
-                      if (scrollController.offset <=
-                          scrollController.position.minScrollExtent) {
-                        // setState(() {
-                        //   message = "reach the end left";
-                        // });
-                        print('reach the end left');
-                      }
-                    });
-                    _controllers.add(scrollController);
-
                     return Container(
                       margin: const EdgeInsets.symmetric(
                         vertical: 12,
@@ -127,17 +111,23 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                         .tertiaryContainer,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      currentPlayer,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer,
-                                              fontWeight: FontWeight.bold),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        currentPlayer,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer,
+                                                fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -169,17 +159,23 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                                   .onSecondaryContainer,
                                             ),
                                       ),
-                                      Text(
-                                        currentPlayerScore.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge!
-                                            .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          currentPlayerScore.toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -341,9 +337,10 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                       if (newScore != null &&
                                           newScore.isNotEmpty) {
                                         setState(() {
-                                          rounds[rounds.length - 1]
-                                                  .scores[currentPlayer] =
-                                              int.parse(newScore);
+                                          updatePlayerScore(
+                                              currentPlayer,
+                                              rounds.length - 1,
+                                              int.parse(newScore));
                                         });
                                       }
                                     },
@@ -366,17 +363,24 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                                         .onSecondaryContainer,
                                                   ),
                                             ),
-                                            Text(
-                                              currentRoundScore.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge!
-                                                  .copyWith(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                              child: Text(
+                                                currentRoundScore.toString(),
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -400,7 +404,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ScoreboardScreen(
+                            getPlayerScoresSorted(widget.game)),
+                      ),
+                    );
+                  },
                   child: Text('Scoreboard',
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary,
@@ -422,6 +433,18 @@ int getPlayerScore(List<Round> rounds, String playerName) {
     playerScore += round.scores[playerName] ?? 0;
   }
   return playerScore;
+}
+
+List<PlayerScore> getPlayerScoresSorted(Game game) {
+  List<PlayerScore> playerScores = [];
+  for (var i = 0; i < game.playerNames.length; i++) {
+    String playerName = game.playerNames[i];
+    int playerScore = getPlayerScore(game.rounds, playerName);
+    playerScores.add(PlayerScore(name: playerName, score: playerScore));
+  }
+  playerScores.sort((playerScore1, playerScore2) =>
+      playerScore2.score.compareTo(playerScore1.score));
+  return playerScores;
 }
 
 Future<String?> _showMyDialog(BuildContext context) async {
