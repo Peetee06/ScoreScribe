@@ -43,9 +43,7 @@ class _AnimatedArrowState extends State<AnimatedArrow>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.reversed);
-    return // You can adjust this
-        Transform.translate(
+    return Transform.translate(
       offset: Offset(_animation.value, 0),
       child: RotatedBox(
         quarterTurns: 1,
