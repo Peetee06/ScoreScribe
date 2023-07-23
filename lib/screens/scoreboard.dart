@@ -263,7 +263,9 @@ class _ScoreboardScreenState extends State<ScoreboardScreen> {
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 4),
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
                                       borderRadius: BorderRadius.circular(8)),
                                   child: ListTile(
                                     dense: true,
