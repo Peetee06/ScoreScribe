@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       themeMode: ThemeMode.system,
       home: const Tabs(),
+      debugShowCheckedModeBanner: true,
     );
   }
 }
