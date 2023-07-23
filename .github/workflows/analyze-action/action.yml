@@ -1,0 +1,38 @@
+# action.yml
+name: "Flutter Analyze"
+description: "Run Flutter analyze on your Dart code"
+inputs:
+  flutter-version:
+    description: "Version of Flutter to use"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Cache Flutter SDK
+      uses: actions/cache@v3
+      with:
+        path: /opt/hostedtoolcache/flutter
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ inputs.flutter-version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: flutter packages get
+
+    - name: Run Flutter Analyze
+      shell: bash
+      run: |
+        flutter analyze > analysis.txt
+    - name: Push results to step summary
+      shell: bash
+      if: success() || failure()
+      run: cat analysis.txt >> $GITHUB_STEP_SUMMARY

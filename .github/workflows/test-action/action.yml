@@ -1,0 +1,77 @@
+# action.yml
+name: "Flutter Test and Coverage"
+description: "Run Flutter tests and generate coverage report"
+inputs:
+  flutter-version:
+    description: "Version of Flutter to use"
+    required: true
+  java-version:
+    description: "Version of Java to use"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: "adopt"
+
+    - name: Cache Flutter SDK
+      uses: actions/cache@v3
+      with:
+        path: |
+          /opt/hostedtoolcache/flutter
+          ~/.pub-cache
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ inputs.flutter-version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: flutter packages get
+
+    - name: Run Tests
+      id: tests
+      shell: bash
+      run: |
+        flutter test --coverage > tests_results.txt
+
+    - name: Push test summary to step summary
+      shell: bash
+      if: success() || failure()
+      run: cat tests_results.txt >> $GITHUB_STEP_SUMMARY
+
+    - name: Install LCOV
+      shell: bash
+      if: success() || failure()
+      run: |
+        sudo apt-get install lcov
+
+    - name: Generate LCOV summary
+      shell: bash
+      id: lcov
+      if: success() || failure()
+      run: |
+        lcov --summary coverage/lcov.info > coverage/lcov.summary
+        cat coverage/lcov.summary >> $GITHUB_STEP_SUMMARY
+
+    - name: Convert LCOV to HTML
+      shell: bash
+      if: success() || failure()
+      run: |
+        genhtml coverage/lcov.info -o coverage/html
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage/html/
