@@ -234,7 +234,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                           padding:
                                               const EdgeInsets.only(left: 20.0),
                                           child: Text(
-                                            'Tab to add score',
+                                            'Tap to add score',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge!
