@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spielblock/screens/new_game.dart';
-import 'package:spielblock/screens/settings.dart';
+import 'package:spielblock/screens/menu.dart';
 import 'package:spielblock/widgets/games.dart';
 
 class Tabs extends StatefulWidget {
@@ -17,12 +17,12 @@ class _TabsState extends State<Tabs> {
   final List<Widget> _pages = <Widget>[
     const Games(),
     const Text('Dummy'),
-    const SettingsScreen(),
+    const MenuScreen(),
   ];
   final List<String> _pageTitles = <String>[
     'Games',
     'New Game',
-    'Settings',
+    'Menu',
   ];
 
   void _selectPage(int index) {
@@ -92,9 +92,9 @@ class _TabsState extends State<Tabs> {
               label: 'New Game',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.settings),
-              icon: Icon(Icons.settings_outlined),
-              label: 'Settings',
+              activeIcon: Icon(Icons.menu),
+              icon: Icon(Icons.menu_outlined),
+              label: 'Menu',
             ),
           ],
         ));
