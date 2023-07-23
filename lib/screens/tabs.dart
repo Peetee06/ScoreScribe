@@ -68,11 +68,21 @@ class _TabsState extends State<Tabs> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(_pageTitles[_currentPageIndex],
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  )),
+          title: Text(
+            _pageTitles[_currentPageIndex],
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.surfaceTint,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(16),
+            ),
+          ),
+          elevation: 2,
+          shadowColor: Theme.of(context).colorScheme.shadow,
         ),
         body: _pages[_currentPageIndex],
         bottomNavigationBar: BottomNavigationBar(

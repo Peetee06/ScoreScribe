@@ -66,6 +66,9 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                 fontWeight: FontWeight.bold,
               ),
         ),
+        iconTheme: Theme.of(context).iconTheme.copyWith(
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
         backgroundColor: Theme.of(context).colorScheme.surfaceTint,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
