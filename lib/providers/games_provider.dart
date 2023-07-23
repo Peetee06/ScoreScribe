@@ -4,11 +4,14 @@ import 'package:spielblock/models/game.dart';
 import 'package:spielblock/utils/database_helper.dart';
 
 class GamesNotifier extends StateNotifier<List<Game>> {
-  GamesNotifier() : super(const []);
+  final DatabaseHelper databaseHelper;
+
+  GamesNotifier({DatabaseHelper? dbHelper})
+      : databaseHelper = dbHelper ?? DatabaseHelper.instance,
+        super(const []);
 
   Future<void> getGames() async {
-    List<Map<String, dynamic>> gamesData =
-        await DatabaseHelper.instance.query();
+    List<Map<String, dynamic>> gamesData = await databaseHelper.query();
     final games = gamesData
         .map(
           (row) => Game.fromMap(row),
@@ -18,12 +21,12 @@ class GamesNotifier extends StateNotifier<List<Game>> {
   }
 
   void addGame(Game game) async {
-    DatabaseHelper.instance.insert(game.toMap());
+    databaseHelper.insert(game.toMap());
     state = [game, ...state];
   }
 
   void updateGame(Game game) async {
-    DatabaseHelper.instance.update(game.toMap());
+    databaseHelper.update(game.toMap());
     state = [
       for (final g in state)
         if (g.id == game.id) game else g,
@@ -31,7 +34,7 @@ class GamesNotifier extends StateNotifier<List<Game>> {
   }
 
   void deleteGame(Game game) async {
-    DatabaseHelper.instance.delete(game.id);
+    databaseHelper.delete(game.id);
     state = [
       for (final g in state)
         if (g.id != game.id) g,
