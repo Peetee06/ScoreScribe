@@ -118,7 +118,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .tertiaryContainer,
+                                        .primaryContainer,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Padding(
@@ -151,7 +151,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .tertiaryContainer,
+                                        .primaryContainer,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Row(
@@ -201,8 +201,7 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .secondaryContainer
-                                      .withOpacity(0.8),
+                                      .primaryContainer,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
