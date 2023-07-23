@@ -197,7 +197,7 @@ class _NewGameScreenState extends ConsumerState<NewGameScreen> {
                     padding: const EdgeInsets.only(left: 16.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                      color: Theme.of(context).colorScheme.primaryContainer,
                     ),
                     child: Row(
                       children: [
@@ -208,9 +208,6 @@ class _NewGameScreenState extends ConsumerState<NewGameScreen> {
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .tertiaryContainer,
                             ),
                             child: TextField(
                               controller: controller,
@@ -221,7 +218,7 @@ class _NewGameScreenState extends ConsumerState<NewGameScreen> {
                                   .copyWith(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onTertiaryContainer,
+                                        .onPrimaryContainer,
                                   ),
                               decoration: InputDecoration(
                                 labelText: 'Player ${index + 1}',

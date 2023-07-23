@@ -26,13 +26,21 @@ class _ScoreboardScreenState extends State<ScoreboardScreen> {
         title: Text(
           "Scoreboard",
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
               ),
         ),
+        backgroundColor: Theme.of(context).colorScheme.surfaceTint,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(16),
+          ),
+        ),
+        elevation: 2,
+        shadowColor: Theme.of(context).colorScheme.shadow,
       ),
       body: Container(
-        color: Theme.of(context).colorScheme.secondaryContainer,
+        color: Theme.of(context).colorScheme.surface,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
