@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spielblock/screens/about.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -10,8 +11,20 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Menu'),
+    return ListView(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: const Text("About"),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const AboutScreen(),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
