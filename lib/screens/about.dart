@@ -20,6 +20,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String website = "github.com";
+    // TODO: Replace with your email address
     const String email = "contact@example.com";
 
     return FutureBuilder(
