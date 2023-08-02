@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -17,35 +19,90 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "About",
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
+    const String website = "github.com";
+    const String email = "contact@example.com";
+
+    return FutureBuilder(
+      future: updateMetaData(),
+      builder: (context, snapshot) => snapshot.hasData
+          ? Center(
+              child: AboutDialog(
+                applicationIcon: Image.asset(
+                  "assets/app_icon.png",
+                  width: 64,
+                  height: 64,
                 ),
-          ),
-          iconTheme: Theme.of(context).iconTheme.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
+                applicationName: snapshot.data!["appName"],
+                applicationVersion: "v${snapshot.data!["version"]}",
+                children: [
+                  const Text(
+                      "Spielblock is a free and open source app for tracking game scores with friends."),
+                  const Text(""),
+                  Row(
+                    children: [
+                      const Text("Website: "),
+                      GestureDetector(
+                        child: const Text(
+                          "github.com",
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        onTap: () async {
+                          Uri url = Uri(
+                              scheme: "https",
+                              host: website,
+                              pathSegments: ["Peetee06", "spielblock"]);
+                          final BuildContext contextBeforeGap = context;
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          } else {
+                            Clipboard.setData(
+                                ClipboardData(text: url.toString()));
+                            ScaffoldMessenger.of(contextBeforeGap).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Unable to open website.\nWebsite URL was copied to clipboard instead.'),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const Text(""),
+                  Row(
+                    children: [
+                      const Text("Contact: "),
+                      GestureDetector(
+                        child: const Text(
+                          email,
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        onTap: () async {
+                          Uri url = Uri(
+                            scheme: 'mailto',
+                            path: email,
+                          );
+                          final BuildContext contextBeforeGap = context;
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          } else {
+                            Clipboard.setData(
+                                ClipboardData(text: url.toString()));
+                            ScaffoldMessenger.of(contextBeforeGap).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Unable to open mail app.\nEmail address was copied to clipboard instead.'),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
-          backgroundColor: Theme.of(context).colorScheme.surfaceTint,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(16),
-            ),
-          ),
-          elevation: 2,
-          shadowColor: Theme.of(context).colorScheme.shadow,
-        ),
-        body: FutureBuilder(
-          future: updateMetaData(),
-          builder: (context, snapshot) => Column(
-            children: [
-              const Text("About page"),
-              Text(snapshot.hasData ? snapshot.data!["version"] : "Not loaded"),
-            ],
-          ),
-        ));
+            )
+          : const Center(child: CircularProgressIndicator()),
+    );
   }
 }

@@ -17,10 +17,9 @@ class _MenuScreenState extends State<MenuScreen> {
           leading: const Icon(Icons.info_outline),
           title: const Text("About"),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const AboutScreen(),
-              ),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => const AboutScreen(),
             );
           },
         ),
