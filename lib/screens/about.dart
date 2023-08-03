@@ -21,7 +21,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const String website = "github.com";
     // TODO: Replace with your email address
-    const String email = "contact@example.com";
+    const String email = "p.trost93+spielblock@gmail.com";
 
     return FutureBuilder(
       future: updateMetaData(),
