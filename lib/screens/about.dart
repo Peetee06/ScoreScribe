@@ -48,17 +48,17 @@ class AboutScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.blue),
                         ),
                         onTap: () async {
+                          var scaffoldMessenger = ScaffoldMessenger.of(context);
                           Uri url = Uri(
                               scheme: "https",
                               host: website,
                               pathSegments: ["Peetee06", "spielblock"]);
-                          final BuildContext contextBeforeGap = context;
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           } else {
                             Clipboard.setData(
                                 ClipboardData(text: url.toString()));
-                            ScaffoldMessenger.of(contextBeforeGap).showSnackBar(
+                            scaffoldMessenger.showSnackBar(
                               const SnackBar(
                                 content: Text(
                                     'Unable to open website.\nWebsite URL was copied to clipboard instead.'),
@@ -79,17 +79,17 @@ class AboutScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.blue),
                         ),
                         onTap: () async {
+                          var scaffoldMessenger = ScaffoldMessenger.of(context);
                           Uri url = Uri(
                             scheme: 'mailto',
                             path: email,
                           );
-                          final BuildContext contextBeforeGap = context;
                           if (await canLaunchUrl(url)) {
                             await launchUrl(url);
                           } else {
                             Clipboard.setData(
                                 ClipboardData(text: url.toString()));
-                            ScaffoldMessenger.of(contextBeforeGap).showSnackBar(
+                            scaffoldMessenger.showSnackBar(
                               const SnackBar(
                                 content: Text(
                                     'Unable to open mail app.\nEmail address was copied to clipboard instead.'),
