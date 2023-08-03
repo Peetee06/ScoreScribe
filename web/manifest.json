@@ -1,6 +1,6 @@
 {
-    "name": "spielblock",
-    "short_name": "spielblock",
+    "name": "scorecard",
+    "short_name": "scorecard",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

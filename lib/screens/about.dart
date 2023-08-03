@@ -48,7 +48,7 @@ class AboutScreen extends StatelessWidget {
                       Uri url = Uri(
                           scheme: "https",
                           host: website,
-                          pathSegments: ["Peetee06", "spielblock"]);
+                          pathSegments: ["Peetee06", "scorecard"]);
                       if (await canLaunchUrl(url)) {
                         await launchUrl(url);
                       } else {
