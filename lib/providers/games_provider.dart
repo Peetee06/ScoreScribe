@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:spielblock/models/game.dart';
-import 'package:spielblock/utils/database_helper.dart';
+import 'package:scorecard/models/game.dart';
+import 'package:scorecard/utils/database_helper.dart';
 
 class GamesNotifier extends StateNotifier<List<Game>> {
   final DatabaseHelper databaseHelper;

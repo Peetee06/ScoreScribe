@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spielblock/screens/new_game.dart';
-import 'package:spielblock/screens/menu.dart';
-import 'package:spielblock/widgets/games.dart';
+import 'package:scorecard/screens/new_game.dart';
+import 'package:scorecard/screens/menu.dart';
+import 'package:scorecard/widgets/games.dart';
 
 class Tabs extends StatefulWidget {
   const Tabs({super.key});

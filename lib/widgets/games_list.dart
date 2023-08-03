@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:spielblock/models/game.dart';
-import 'package:spielblock/screens/game.dart';
-import 'package:spielblock/widgets/alerts/edit_game_name.dart';
-import 'package:spielblock/widgets/animated_arrow.dart';
+import 'package:scorecard/models/game.dart';
+import 'package:scorecard/screens/game.dart';
+import 'package:scorecard/widgets/alerts/edit_game_name.dart';
+import 'package:scorecard/widgets/animated_arrow.dart';
 
 class GamesList extends StatelessWidget {
   const GamesList(this.games,

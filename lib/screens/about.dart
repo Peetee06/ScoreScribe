@@ -20,8 +20,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String website = "github.com";
-    // TODO: Replace with your email address
-    const String email = "p.trost93+spielblock@gmail.com";
+    const String email = "p.trost93+scorecard@gmail.com";
 
     return FutureBuilder(
       future: updateMetaData(),
@@ -37,68 +36,56 @@ class AboutScreen extends StatelessWidget {
                 applicationVersion: "v${snapshot.data!["version"]}",
                 children: [
                   const Text(
-                      "Spielblock is a free and open source app for tracking game scores with friends."),
+                      "Scorecard is a free and open source app for tracking game scores with friends."),
                   const Text(""),
-                  Row(
-                    children: [
-                      const Text("Website: "),
-                      GestureDetector(
-                        child: const Text(
-                          "github.com",
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                        onTap: () async {
-                          var scaffoldMessenger = ScaffoldMessenger.of(context);
-                          Uri url = Uri(
-                              scheme: "https",
-                              host: website,
-                              pathSegments: ["Peetee06", "spielblock"]);
-                          if (await canLaunchUrl(url)) {
-                            await launchUrl(url);
-                          } else {
-                            Clipboard.setData(
-                                ClipboardData(text: url.toString()));
-                            scaffoldMessenger.showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    'Unable to open website.\nWebsite URL was copied to clipboard instead.'),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                  GestureDetector(
+                    child: const Text(
+                      "GitHub Repository",
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    onTap: () async {
+                      var scaffoldMessenger = ScaffoldMessenger.of(context);
+                      Uri url = Uri(
+                          scheme: "https",
+                          host: website,
+                          pathSegments: ["Peetee06", "spielblock"]);
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url);
+                      } else {
+                        Clipboard.setData(ClipboardData(text: url.toString()));
+                        scaffoldMessenger.showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Unable to open website.\nWebsite URL was copied to clipboard instead.'),
+                          ),
+                        );
+                      }
+                    },
                   ),
                   const Text(""),
-                  Row(
-                    children: [
-                      const Text("Contact: "),
-                      GestureDetector(
-                        child: const Text(
-                          email,
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                        onTap: () async {
-                          var scaffoldMessenger = ScaffoldMessenger.of(context);
-                          Uri url = Uri(
-                            scheme: 'mailto',
-                            path: email,
-                          );
-                          if (await canLaunchUrl(url)) {
-                            await launchUrl(url);
-                          } else {
-                            Clipboard.setData(
-                                ClipboardData(text: url.toString()));
-                            scaffoldMessenger.showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    'Unable to open mail app.\nEmail address was copied to clipboard instead.'),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                  GestureDetector(
+                    child: const Text(
+                      "Contact Email",
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    onTap: () async {
+                      var scaffoldMessenger = ScaffoldMessenger.of(context);
+                      Uri url = Uri(
+                        scheme: 'mailto',
+                        path: email,
+                      );
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url);
+                      } else {
+                        Clipboard.setData(ClipboardData(text: url.toString()));
+                        scaffoldMessenger.showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Unable to open mail app.\nEmail address was copied to clipboard instead.'),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

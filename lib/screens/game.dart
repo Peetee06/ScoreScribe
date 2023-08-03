@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
-import 'package:spielblock/models/game.dart';
-import 'package:spielblock/models/player_score.dart';
-import 'package:spielblock/providers/games_provider.dart';
-import 'package:spielblock/screens/scoreboard.dart';
-import 'package:spielblock/widgets/animated_arrow_right_to_left.dart';
+import 'package:scorecard/models/game.dart';
+import 'package:scorecard/models/player_score.dart';
+import 'package:scorecard/providers/games_provider.dart';
+import 'package:scorecard/screens/scoreboard.dart';
+import 'package:scorecard/widgets/animated_arrow_right_to_left.dart';
 
 import '../models/round.dart';
 

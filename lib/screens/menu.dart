@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spielblock/screens/about.dart';
+import 'package:scorecard/screens/about.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
