@@ -4,6 +4,8 @@ import 'package:scorecard/screens/tabs.dart';
 import 'color_schemes.g.dart';
 
 void main() {
+  const deviceName = String.fromEnvironment('DEVICE_NAME');
+  print("Device name in main.dart $deviceName");
   runApp(const ProviderScope(child: MyApp()));
 }
 

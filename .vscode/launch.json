@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Dart: Run",
+      "request": "launch",
+      "type": "dart",
+      "program": "test_driver/emulator_runner.dart",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Integration Test: Run Test",
+      "program": "integration_test/menu_test.dart",
+      "request": "launch",
+      "type": "dart"
+    }
+  ]
+}
