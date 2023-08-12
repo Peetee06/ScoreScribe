@@ -74,3 +74,6 @@ doc/api/
 screenshots/**/*.png
 screenshots/**/*.jpg
 screenshots/**/*.jpeg
+
+# local vscode config
+.vscode/
