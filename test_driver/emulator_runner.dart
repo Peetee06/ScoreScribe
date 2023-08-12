@@ -10,7 +10,6 @@ Future<void> main() async {
     'Nexus_S_API_33_1',
   ];
 
-  print('Running screenshots process');
   await runFlutterScreenshotTests(emulatorsMap);
 }
 
