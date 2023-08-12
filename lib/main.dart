@@ -4,6 +4,7 @@ import 'package:scorecard/screens/tabs.dart';
 import 'color_schemes.g.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 

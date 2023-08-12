@@ -69,3 +69,11 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# screenshots
+screenshots/**/*.png
+screenshots/**/*.jpg
+screenshots/**/*.jpeg
+
+# local vscode config
+.vscode/

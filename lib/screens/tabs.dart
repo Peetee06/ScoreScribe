@@ -92,18 +92,34 @@ class _TabsState extends State<Tabs> {
             BottomNavigationBarItem(
               activeIcon: Icon(
                 Icons.casino,
+                key: ValueKey('gamesTab'),
               ),
-              icon: Icon(Icons.casino_outlined),
+              icon: Icon(
+                Icons.casino_outlined,
+                key: ValueKey('gamesTab'),
+              ),
               label: 'Games',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.add_box_rounded),
-              icon: Icon(Icons.add_box_outlined),
+              activeIcon: Icon(
+                Icons.add_box_rounded,
+                key: ValueKey('newGameTab'),
+              ),
+              icon: Icon(
+                Icons.add_box_outlined,
+                key: ValueKey('newGameTab'),
+              ),
               label: 'New Game',
             ),
             BottomNavigationBarItem(
-              activeIcon: Icon(Icons.menu),
-              icon: Icon(Icons.menu_outlined),
+              activeIcon: Icon(
+                Icons.menu,
+                key: ValueKey('menuTab'),
+              ),
+              icon: Icon(
+                Icons.menu_outlined,
+                key: ValueKey('menuTab'),
+              ),
               label: 'Menu',
             ),
           ],

@@ -45,11 +45,17 @@ dependencies:
   package_info_plus: ^4.0.2
   flutter_launcher_icons: ^0.13.1
   url_launcher: ^6.1.12
+  beamer: ^1.5.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.4.2
+  integration_test:
+    sdk: flutter
+  test:
+  flutter_driver:
+    sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -57,6 +63,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  emulators:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

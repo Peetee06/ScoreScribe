@@ -14,6 +14,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return ListView(
       children: [
         ListTile(
+          key: const ValueKey('about'),
           leading: const Icon(Icons.info_outline),
           title: const Text("About"),
           onTap: () {

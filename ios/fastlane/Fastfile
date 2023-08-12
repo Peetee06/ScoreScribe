@@ -15,9 +15,24 @@
 
 default_platform(:ios)
 
+
+lane :take_screenshots do
+  sh("dart", "../../test_driver/emulator_runner.dart")
+end
+
 platform :ios do
   desc "Description of what the lane does"
   lane :custom_lane do
     # add actions here: https://docs.fastlane.tools/actions
+  end
+
+  lane :framescreenshots do
+    frameit(path: File.expand_path("../../screenshots/ios"))
+  end
+end
+
+platform :android do
+  lane :framescreenshots do
+    frameit(path: File.expand_path("../../screenshots/android"))
   end
 end
