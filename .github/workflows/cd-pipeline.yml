@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - feature/actions_screenshot_generation
   pull_request:
     branches:
       - main
