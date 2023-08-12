@@ -44,7 +44,7 @@ runs:
       run: dart test_driver/emulator_runner.dart
 
     - name: Upload screenshots
-        uses: actions/upload-artifact@v3
-        with:
-            name: screenshots
-            path: screenshots
+      uses: actions/upload-artifact@v3
+      with:
+        name: screenshots
+        path: screenshots
