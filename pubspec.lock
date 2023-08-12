@@ -177,14 +177,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  elemental:
+    dependency: transitive
+    description:
+      name: elemental
+      sha256: b3c1cd34f6e833bf51768f6bbb0b584886e0f3fd7223566b5953c11d8e106c2e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   emulators:
     dependency: "direct dev"
     description:
       name: emulators
-      sha256: "7616a2b9b782a76bdf30d343b2639fd776f64a2746b723bde1184b11f1e6b01c"
+      sha256: "4d8492934ddfa6f42b63045a823c8284d1467c62d4bf3c3cb0b54191356a112a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.13"
+    version: "0.5.1"
   fake_async:
     dependency: transitive
     description:
@@ -269,14 +277,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  fpdt:
+  fpdart:
     dependency: transitive
     description:
-      name: fpdt
-      sha256: aeb537463497ea141eb231e69ec44e5a9002a79ee746afb7c487c91629309513
+      name: fpdart
+      sha256: b254aef83353a12e355df6f1231d9b646638bb9493b3f2a2c4800961f7e8bf0b
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.4"
+    version: "1.0.0"
   freezed_annotation:
     dependency: transitive
     description:
@@ -439,6 +447,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  nucleus:
+    dependency: transitive
+    description:
+      name: nucleus
+      sha256: a279b157bd781066095562d16f6b3ec1f6edec585619417195876bcd15776c9b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   package_config:
     dependency: transitive
     description:

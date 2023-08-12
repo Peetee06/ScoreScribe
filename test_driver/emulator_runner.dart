@@ -7,16 +7,25 @@ Future<void> main() async {
     'iPhone 13 Pro',
     'iPad Pro (12.9-inch) (6th generation)',
     'Pixel_6_API_33_1',
-    // 'Nexus_S_API_33_1',
+    'Nexus_S_API_33_1',
   ];
-  print('Running process');
+
+  print('Setting up directories');
+
+  setupDirectories();
+
+  print('Running screenshots process');
   await runFlutterScreenshotTests(emulatorsMap);
 }
 
-void setupDirectories(String platform, String deviceName) {
-  final dir = Directory('screenshots/$platform/$deviceName');
-  if (!dir.existsSync()) {
-    dir.createSync(recursive: true);
+void setupDirectories() {
+  List<String> platforms = ['android', 'ios'];
+
+  for (final platform in platforms) {
+    final dir = Directory('screenshots/$platform');
+    if (!dir.existsSync()) {
+      dir.createSync(recursive: true);
+    }
   }
 }
 
@@ -37,9 +46,6 @@ Future<void> runFlutterIntegrationTests(
       platformName = 'android';
   }
 
-  print('Setting up directories');
-  setupDirectories(platformName, deviceName);
-
   print('Running flutter drive');
   final result = await Process.run('flutter', [
     'drive',
@@ -56,23 +62,23 @@ Future<void> runFlutterIntegrationTests(
   print(result.stderr);
 }
 
-Future<void> runFlutterScreenshotTests(List<String> emulatorMap) async {
+Future<void> runFlutterScreenshotTests(List<String> emulatorIDs) async {
   final emulators = await Emulators.build();
 
   // Shutdown all the running emulators
   await emulators.shutdownAll();
 
-  print('Emulators: $emulators');
   final configs = [
     {'locale': 'en-US'},
   ];
-  print('Running forEach');
-  await emulators.forEach(emulatorMap)((device) async {
-    print('running device $device');
+  await emulators.forEach(emulatorIDs)((device) async {
     for (final _ in configs) {
       DeviceState state = device.state;
-      print('Running emulator ${state.name} with id ${state.id}');
-      await runFlutterIntegrationTests(state.id, state.name, state.platform);
+      String deviceName = state.name;
+      String deviceId = state.id;
+      DevicePlatform platform = state.platform;
+      print('Running emulator for ${deviceName}');
+      await runFlutterIntegrationTests(deviceId, deviceName, platform);
     }
   });
 }

@@ -13,7 +13,7 @@ void main() {
   const platform = String.fromEnvironment('PLATFORM');
 
   String devicePrefix = deviceName.isEmpty ? '' : deviceName;
-  String screenshotDirectory = 'screenshots/$platform/$devicePrefix/';
+  String screenshotDirectory = 'screenshots/$platform/${devicePrefix}_';
   print("Device name in menu_test $deviceName");
   print("Screenshots directory in menu_test $screenshotDirectory");
 
