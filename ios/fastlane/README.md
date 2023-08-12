@@ -13,6 +13,17 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+### take_screenshots
+
+```sh
+[bundle exec] fastlane take_screenshots
+```
+
+
+
+----
+
+
 ## iOS
 
 ### ios custom_lane
@@ -23,10 +34,23 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Description of what the lane does
 
-### ios screenshots
+### ios framescreenshots
 
 ```sh
-[bundle exec] fastlane ios screenshots
+[bundle exec] fastlane ios framescreenshots
+```
+
+
+
+----
+
+
+## Android
+
+### android framescreenshots
+
+```sh
+[bundle exec] fastlane android framescreenshots
 ```
 
 
