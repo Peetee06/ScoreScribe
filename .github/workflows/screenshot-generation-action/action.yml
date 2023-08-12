@@ -1,9 +1,12 @@
 # action.yml
-name: "Flutter Analyze"
-description: "Run Flutter analyze on your Dart code"
+name: "Create screenshots"
+description: "Creeate screenshots for the app"
 inputs:
   flutter-version:
     description: "Version of Flutter to use"
+    required: true
+  java-version:
+    description: "Version of Java to use"
     required: true
 runs:
   using: "composite"
@@ -11,10 +14,18 @@ runs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: "adopt"
+
     - name: Cache Flutter SDK
       uses: actions/cache@v3
       with:
-        path: /opt/hostedtoolcache/flutter
+        path: |
+          /opt/hostedtoolcache/flutter
+          ~/.pub-cache
         key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
         restore-keys: |
           ${{ runner.os }}-flutter-
@@ -28,11 +39,12 @@ runs:
       shell: bash
       run: flutter pub get
 
-    - name: Run Flutter Analyze
+    - name: Create screenshots
       shell: bash
-      run: |
-        flutter analyze > analysis.txt
-    - name: Push results to step summary
-      shell: bash
-      if: success() || failure()
-      run: cat analysis.txt >> $GITHUB_STEP_SUMMARY
+      run: dart test_driver/emulator_runner.dart
+
+    - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        with:
+            name: screenshots
+            path: screenshots

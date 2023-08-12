@@ -37,7 +37,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: flutter packages get
+      run: flutter pub get
 
     - name: Run Tests
       id: tests
