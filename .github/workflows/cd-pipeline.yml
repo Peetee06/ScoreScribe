@@ -23,3 +23,4 @@ jobs:
         uses: ./.github/workflows/screenshot-generation-action
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          java-version: ${{ env.JAVA_VERSION }}
