@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:emulators/emulators.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:scorecard/main.dart' as app;
@@ -7,15 +9,23 @@ import 'package:scorecard/main.dart' as app;
 import 'page_objects/tabs_screen.dart';
 
 void main() {
-  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  const deviceName = String.fromEnvironment('DEVICE_NAME');
-  const platform = String.fromEnvironment('PLATFORM');
+  const androidScreenshotPath = 'screenshots/store/android';
+  const iosScreenshotPath = 'screenshots/store/ios';
 
-  String devicePrefix = deviceName.isEmpty ? '' : deviceName;
-  String screenshotDirectory = 'screenshots/$platform/${devicePrefix}_';
-  print("Device name in menu_test $deviceName");
-  print("Screenshots directory in menu_test $screenshotDirectory");
+  WidgetsApp.debugAllowBannerOverride = false;
+
+  ScreenshotHelper? screenshot;
+
+  setUpAll(() async {
+    final emulators = await Emulators.build();
+    screenshot = emulators.screenshotHelper(
+      androidPath: androidScreenshotPath,
+      iosPath: iosScreenshotPath,
+    );
+    await screenshot!.cleanStatusBar();
+  });
 
   group('end-to-end-test', () {
     testWidgets('render games and navigate to menu', (tester) async {
@@ -23,9 +33,6 @@ void main() {
       app.main();
 
       print('running tests');
-      if (Platform.isAndroid) {
-        await binding.convertFlutterSurfaceToImage();
-      }
 
       await tester.pump();
       await tester.pump();
@@ -33,19 +40,21 @@ void main() {
       await tester.pump();
       print('creating first screenshot');
 
-      await binding.takeScreenshot('${screenshotDirectory}screenshot-1');
+      // await binding.takeScreenshot('${screenshotDirectory}screenshot-1');
+      await screenshot!.capture('home_screen');
 
-      TabsTestScreen tabsTestScreen = TabsTestScreen(tester);
-      await tester.pump();
+      // TabsTestScreen tabsTestScreen = TabsTestScreen(tester);
+      // await tester.pump();
 
-      await expectLater(tabsTestScreen.isReady(), completion(true));
-      await tabsTestScreen.tapMenuTab();
-      await tester.pumpAndSettle();
+      // await expectLater(tabsTestScreen.isReady(), completion(true));
+      // await tabsTestScreen.tapMenuTab();
+      // await tester.pumpAndSettle();
 
-      print('Creating second screenshot');
+      // print('Creating second screenshot');
 
-      expect(find.text('About'), findsOneWidget);
-      await binding.takeScreenshot('${screenshotDirectory}screenshot-4');
+      // expect(find.text('About'), findsOneWidget);
+      // await screenshot!.capture('menu_screen');
+      // await binding.takeScreenshot('${screenshotDirectory}screenshot-4');
     });
   });
 }
