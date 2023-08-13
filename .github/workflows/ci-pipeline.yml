@@ -4,13 +4,19 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
     branches:
       - main
+      - develop
 
 env:
   FLUTTER_VERSION: 3.10.6
   JAVA_VERSION: 11
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   analyze:

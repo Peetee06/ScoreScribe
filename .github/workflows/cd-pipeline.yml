@@ -1,0 +1,30 @@
+name: Continuous Delivery
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - feature/actions_screenshot_generation
+  pull_request:
+    branches:
+      - main
+
+env:
+  FLUTTER_VERSION: 3.10.6
+  JAVA_VERSION: 11
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  screenshot-generation:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create screenshots
+        uses: ./.github/workflows/screenshot-generation-action
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          java-version: ${{ env.JAVA_VERSION }}

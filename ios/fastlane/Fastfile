@@ -17,7 +17,9 @@ default_platform(:ios)
 
 
 lane :take_screenshots do
-  sh("dart", "../../test_driver/emulator_runner.dart")
+  Dir.chdir("../..") do
+    sh("dart", "./test_driver/emulator_runner.dart")
+  end
 end
 
 platform :ios do
@@ -27,12 +29,16 @@ platform :ios do
   end
 
   lane :framescreenshots do
-    frameit(path: File.expand_path("../../screenshots/ios"))
+    Dir.chdir("../..") do
+      frameit(path: File.expand_path("./screenshots/store/ios"))
+    end
   end
 end
 
 platform :android do
   lane :framescreenshots do
-    frameit(path: File.expand_path("../../screenshots/android"))
+    Dir.chdir("../..") do
+      frameit(path: File.expand_path("./screenshots/store/android"))
+    end
   end
 end

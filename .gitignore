@@ -72,8 +72,9 @@ doc/api/
 
 # screenshots
 screenshots/**/*.png
-screenshots/**/*.jpg
-screenshots/**/*.jpeg
+
+# fastlane
+ios/fastlane/report.xml
 
 # local vscode config
 .vscode/

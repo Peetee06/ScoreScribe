@@ -1,0 +1,26 @@
+{
+    "device_frame_version": "latest",
+    "default": {
+        "background": "../../background.jpg",
+        "padding": "5%",
+        "title": {
+            "size": 20,
+            "color": "#000000"
+        },
+        "keyword": {
+            "size": 20,
+            "color": "#157dd2"
+        },
+        "stack_title": true
+    },
+    "data": [
+        {
+            "filter": "iPhone 13 Pro",
+            "force_device_type": "iPhone 13 Pro"
+        },
+        {
+            "filter": "iPad Pro (12.9-inch) (6th generation)",
+            "force_device_type": "iPad Pro (12.9-inch) (4th generation)"
+        }
+    ]
+}

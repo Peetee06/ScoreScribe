@@ -1,12 +1,10 @@
-import 'dart:io';
-
 import 'package:emulators/emulators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:scorecard/main.dart' as app;
 
-import 'page_objects/tabs_screen.dart';
+// import 'page_objects/tabs_screen.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -32,13 +30,10 @@ void main() {
       // Build the app.
       app.main();
 
-      print('running tests');
-
       await tester.pump();
       await tester.pump();
       await tester.pump();
       await tester.pump();
-      print('creating first screenshot');
 
       // await binding.takeScreenshot('${screenshotDirectory}screenshot-1');
       await screenshot!.capture('home_screen');
