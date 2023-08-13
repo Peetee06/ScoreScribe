@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feature/actions_screenshot_generation
+      - feature/beta_releases
   pull_request:
     branches:
       - main
