@@ -8,11 +8,22 @@ inputs:
   java-version:
     description: "Version of Java to use"
     required: true
-env:
-  FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APPLICATION_SPECIFIC_PASSWORD_SCORESCRIBE }}
-  APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APPLESTORECONNECTAPIKEY }}
-  APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLESTORECONNECTISSUERID }}
-  APP_STORE_CONNECT_KEY_ID: "Scorecard Key"
+  apple_application_specific_password:
+    description: "Apple Application Specific Password"
+    required: true
+  app_store_connect_key_content:
+    description: "App Store Connect Key Content"
+    required: true
+  app_store_connect_issuer_id:
+    description: "App Store Connect Issuer ID"
+    required: true
+
+  env:
+    FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ inputs.apple_application_specific_password }}
+    APP_STORE_CONNECT_KEY_CONTENT: ${{ inputs.app_store_connect_key_content }}
+    APP_STORE_CONNECT_ISSUER_ID: ${{ inputs.app_store_connect_issuer_id }}
+    APP_STORE_CONNECT_KEY_ID: "Scorecard Key"
+
 runs:
   using: "composite"
   steps:

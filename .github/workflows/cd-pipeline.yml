@@ -34,7 +34,10 @@ jobs:
     # needs: screenshot-generation
     steps:
       - uses: actions/checkout@v3
-      - name: Create beta release
-        uses: ./.github/workflows/ios-beta-release-action
+      - name: Upload to TestFlight
+        uses: ./.github/actions/upload-to-testflight
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          apple_application_specific_password: ${{ secrets.APPLE_APPLICATION_SPECIFIC_PASSWORD_SCORESCRIBE }}
+          app_store_connect_key_content: ${{ secrets.APPLESTORECONNECTAPIKEY }}
+          app_store_connect_issuer_id: ${{ secrets.APPLESTORECONNECTISSUERID }}
