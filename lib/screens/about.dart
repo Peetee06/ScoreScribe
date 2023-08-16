@@ -36,7 +36,7 @@ class AboutScreen extends StatelessWidget {
                 applicationVersion: "v${snapshot.data!["version"]}",
                 children: [
                   const Text(
-                      "Scorecard is a free and open source app for tracking game scores with friends."),
+                      "ScoreScribe is a free and open source app for tracking game scores with friends."),
                   const Text(""),
                   GestureDetector(
                     child: const Text(

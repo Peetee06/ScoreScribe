@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:scorecard/screens/tabs.dart';
+import 'package:ScoreScribe/screens/tabs.dart';
 import 'color_schemes.g.dart';
 
 void main() {

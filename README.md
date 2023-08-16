@@ -1,2 +1,2 @@
-# scorecard
-A simple Scorecard written using Dart and Flutter.
+# ScoreScribe
+A simple ScoreScribe written using Dart and Flutter.

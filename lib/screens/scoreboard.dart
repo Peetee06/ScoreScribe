@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scorecard/models/player_score.dart';
+import 'package:ScoreScribe/models/player_score.dart';
 
 class ScoreboardScreen extends StatefulWidget {
   const ScoreboardScreen(this.playerScores, {super.key});
