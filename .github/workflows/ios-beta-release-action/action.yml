@@ -1,6 +1,6 @@
 # action.yml
-name: "Create screenshots"
-description: "Creeate screenshots for the app"
+name: "Upload to TestFlight"
+description: "Upload a new build to TestFlight"
 inputs:
   flutter-version:
     description: "Version of Flutter to use"
