@@ -19,12 +19,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  screenshot-generation:
+  # screenshot-generation:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Create screenshots
+  #       uses: ./.github/workflows/screenshot-generation-action
+  #       with:
+  #         flutter-version: ${{ env.FLUTTER_VERSION }}
+  #         java-version: ${{ env.JAVA_VERSION }}
+
+  beta-release:
     runs-on: macos-latest
+    # needs: screenshot-generation
     steps:
       - uses: actions/checkout@v3
-      - name: Create screenshots
-        uses: ./.github/workflows/screenshot-generation-action
+      - name: Create beta release
+        uses: ./.github/workflows/ios-beta-release-action
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          java-version: ${{ env.JAVA_VERSION }}

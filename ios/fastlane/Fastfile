@@ -22,23 +22,25 @@ lane :take_screenshots do
   end
 end
 
-platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
-  end
+desc "Description of what the lane does"
+lane :custom_lane do
+  # add actions here: https://docs.fastlane.tools/actions
+end
 
-  lane :framescreenshots do
-    Dir.chdir("../..") do
-      frameit(path: File.expand_path("./screenshots/store/ios"))
-    end
+lane :framescreenshots do
+  Dir.chdir("../..") do
+    frameit(path: File.expand_path("./screenshots/store/ios"))
   end
 end
 
-platform :android do
-  lane :framescreenshots do
-    Dir.chdir("../..") do
-      frameit(path: File.expand_path("./screenshots/store/android"))
-    end
-  end
+lane :beta do
+  app_store_connect_api_key(
+    key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
+    issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+    key_content: ENV["APP_STORE_CONNECT_KEY_CONTENT"],
+    duration: 1200,
+    in_house: false
+  )
+  build_app(scheme: "Runner")
+  upload_to_testflight(submit_beta_review: false, skip_submission: true, skip_waiting_for_build_processing: true)
 end

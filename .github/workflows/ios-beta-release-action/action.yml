@@ -1,0 +1,52 @@
+# action.yml
+name: "Create screenshots"
+description: "Creeate screenshots for the app"
+inputs:
+  flutter-version:
+    description: "Version of Flutter to use"
+    required: true
+  java-version:
+    description: "Version of Java to use"
+    required: true
+env:
+  FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APPLICATION_SPECIFIC_PASSWORD_SCORESCRIBE }}
+  APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APPLESTORECONNECTAPIKEY }}
+  APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLESTORECONNECTISSUERID }}
+  APP_STORE_CONNECT_KEY_ID: "Scorecard Key"
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Cache Flutter SDK
+      uses: actions/cache@v3
+      with:
+        path: |
+          /opt/hostedtoolcache/flutter
+          ~/.pub-cache
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ inputs.flutter-version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: flutter pub get
+
+    - name: Setup ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 3.0
+        bundler-cache: true
+        working-directory: "ios"
+
+    - name: Deploy to TestFlight
+      uses: maierj/fastlane-action@v3.0.0
+      with:
+        lane: "beta"
+        subdirectory: "ios"
