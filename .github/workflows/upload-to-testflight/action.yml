@@ -20,12 +20,6 @@ inputs:
 
 runs:
   using: "composite"
-  env:
-    FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ inputs.apple_application_specific_password }}
-    APP_STORE_CONNECT_KEY_CONTENT: ${{ inputs.app_store_connect_key_content }}
-    APP_STORE_CONNECT_ISSUER_ID: ${{ inputs.app_store_connect_issuer_id }}
-    APP_STORE_CONNECT_KEY_ID: "Scorecard Key"
-
   steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -61,3 +55,8 @@ runs:
       with:
         lane: "beta"
         subdirectory: "ios"
+      env:
+        FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ inputs.apple_application_specific_password }}
+        APP_STORE_CONNECT_KEY_CONTENT: ${{ inputs.app_store_connect_key_content }}
+        APP_STORE_CONNECT_ISSUER_ID: ${{ inputs.app_store_connect_issuer_id }}
+        APP_STORE_CONNECT_KEY_ID: "Scorecard Key"
