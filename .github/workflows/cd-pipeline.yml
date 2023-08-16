@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Upload to TestFlight
-        uses: ./.github/actions/upload-to-testflight
+        uses: ./.github/workflows/upload-to-testflight
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           apple_application_specific_password: ${{ secrets.APPLE_APPLICATION_SPECIFIC_PASSWORD_SCORESCRIBE }}
