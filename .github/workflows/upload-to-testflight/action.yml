@@ -55,6 +55,7 @@ runs:
       with:
         lane: "beta"
         subdirectory: "ios"
+        verbose: true
       env:
         FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ inputs.apple_application_specific_password }}
         APP_STORE_CONNECT_KEY_CONTENT: ${{ inputs.app_store_connect_key_content }}
