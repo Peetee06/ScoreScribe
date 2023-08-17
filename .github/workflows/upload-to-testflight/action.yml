@@ -44,7 +44,7 @@ runs:
       run: flutter pub get
 
     - name: Setup ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: "3.0"
         bundler-cache: true
