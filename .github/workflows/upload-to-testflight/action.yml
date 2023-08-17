@@ -46,7 +46,7 @@ runs:
     - name: Setup ruby
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 3.0
+        ruby-version: "3.0"
         bundler-cache: true
         working-directory: "ios"
 
