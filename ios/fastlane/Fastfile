@@ -41,7 +41,7 @@ lane :beta do
     duration: 1200,
     in_house: false
   )
-
+  match(type: "appstore")
   # Get the latest build number from TestFlight
   previous_build_number = latest_testflight_build_number(
   app_identifier: 'com.trost.scorecard',
@@ -54,6 +54,7 @@ lane :beta do
     build_number: current_build_number
   )
 
-  build_app(scheme: "Runner")
+  # build_app(scheme: "Runner")
+  gym(export_method: "app-store", scheme: "Runner")
   upload_to_testflight(submit_beta_review: false, skip_submission: true, skip_waiting_for_build_processing: true)
 end

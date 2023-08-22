@@ -17,6 +17,12 @@ inputs:
   app_store_connect_issuer_id:
     description: "App Store Connect Issuer ID"
     required: true
+  match_password:
+    description: "Match Password"
+    required: true
+  match_git_basic_authorization:
+    description: "Match Git Basic Authorization"
+    required: true
 
 runs:
   using: "composite"
@@ -61,3 +67,5 @@ runs:
         APP_STORE_CONNECT_KEY_CONTENT: ${{ inputs.app_store_connect_key_content }}
         APP_STORE_CONNECT_ISSUER_ID: ${{ inputs.app_store_connect_issuer_id }}
         APP_STORE_CONNECT_KEY_ID: "UTV2V4K6M7"
+        MATCH_PASSWORD: ${{ inputs.match_password }}
+        MATCH_GIT_BASIC_AUTHORIZATION: ${{ inputs.match_git_basic_authorization }}
