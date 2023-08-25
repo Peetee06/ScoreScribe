@@ -58,6 +58,7 @@ runs:
 
     - name: Install tools
       working-directory: "ios"
+      shell: bash
       run: |
         pod install
 
