@@ -66,4 +66,12 @@ lane :beta do
   # build_app(scheme: "Runner")
   gym(export_method: "app-store", scheme: "Runner")
   upload_to_testflight(submit_beta_review: false, skip_submission: true, skip_waiting_for_build_processing: true)
+
+  add_git_tag(
+    grouping: "builds",
+    includes_lane: false,
+    prefix: "ios",
+    build_number: current_build_number,
+    force: true,
+  )
 end
