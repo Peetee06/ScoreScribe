@@ -44,6 +44,13 @@ lane :beta do
     in_house: false
   )
   match(type: "appstore")
+
+  # Get the latest version number from the VERSION file
+  increment_version_number(
+  xcodeproj: project,
+  version_number: File.read("../VERSION")
+  )
+
   # Get the latest build number from TestFlight
   previous_build_number = latest_testflight_build_number(
   app_identifier: 'com.trost.scorecard',
