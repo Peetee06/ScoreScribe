@@ -47,7 +47,6 @@ lane :beta do
 
   # Get the latest version number from the VERSION file
   increment_version_number(
-  xcodeproj: project,
   version_number: File.read("../VERSION")
   )
 
