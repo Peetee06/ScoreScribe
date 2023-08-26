@@ -35,13 +35,13 @@ lane :framescreenshots do
 end
 
 lane :beta do
-  setup_ci
+  setup_ci if is_ci
 
-  match(type: 'appstore', readonly: is_ci)
+  match(type: 'appstore', readonly: false)
 
   build_app(
-    skip_build_archive: is_ci,
-    archive_path: '../build/ios/iphoneos/Runner.app'
+    skip_build_archive: true,
+    archive_path: '../build/ios/iphoneos/Runner.app.xcarchive'
   )
 
   upload_to_testflight(submit_beta_review: false, skip_submission: true, skip_waiting_for_build_processing: true)
