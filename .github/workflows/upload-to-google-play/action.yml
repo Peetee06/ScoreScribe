@@ -34,8 +34,8 @@ runs:
       shell: bash
       working-directory: "android"
       run: |
-        echo -e "${{ inputs.google_keystore }}" > upload-keystore.jks
-        echo -e "${{ inputs.google_key_properties }}" > key.properties
+        echo "${{ inputs.google_keystore }}" | base64 --decode > upload-keystore.jks
+        echo "${{ inputs.google_key_properties }}" | base64 --decode > key.properties
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
