@@ -60,14 +60,6 @@ runs:
       shell: bash
       run: flutter build ios --release --no-codesign
 
-    - name: Debug1
-      shell: bash
-      run: ls
-
-    - name: Debug2
-      shell: bash
-      run: ls -la build/ios/archive/Runner.xcarchive
-
     - name: Deploy to TestFlight
       uses: maierj/fastlane-action@v3.0.0
       with:
