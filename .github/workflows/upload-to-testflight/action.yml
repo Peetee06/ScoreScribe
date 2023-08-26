@@ -59,6 +59,7 @@ runs:
     - name: Install Pods
       shell: bash
       run: pod install
+      working-directory: "ios"
 
     - name: Deploy to TestFlight
       uses: maierj/fastlane-action@v3.0.0
