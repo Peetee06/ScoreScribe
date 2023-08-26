@@ -30,9 +30,11 @@ runs:
         flutter-version: ${{ inputs.flutter-version }}
 
     - name: Install dependencies
+      shell: bash
       run: flutter pub get
 
     - name: Build APK
+    shell: bash
       run: flutter build apk --release
 
     - name: Setup Ruby
