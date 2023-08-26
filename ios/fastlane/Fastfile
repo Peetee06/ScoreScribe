@@ -37,10 +37,18 @@ end
 lane :beta do
   setup_ci
 
-  match(type: 'appstore', readonly: true)
+  match(type: 'appstore', readonly: is_ci)
+
+  sh('pwd')
+
+  sh('ls ../build/ios/archive/')
+
+  sh('ls')
+
+  sh('ls ..')
 
   build_app(
-    skip_build_archive: true,
+    skip_build_archive: is_ci,
     archive_path: '../build/ios/archive/Runner.xcarchive'
   )
 
