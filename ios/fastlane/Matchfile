@@ -1,11 +1,12 @@
-git_url("https://github.com/Peetee06/apple_cerfificates_profiles.git")
+# git_url("https://github.com/Peetee06/apple_cerfificates_profiles.git")
+git_url('git@github.com:Peetee06/ScoreScribe.git')
 
-storage_mode("git")
+storage_mode('git')
 
-type("development") # The default type, can be: appstore, adhoc, enterprise or development
+type('development') # The default type, can be: appstore, adhoc, enterprise or development
 
-app_identifier(["com.trost.scorecard"])
-username("peter_trost93@yahoo.de")
+app_identifier(['com.trost.scorecard'])
+username('peter_trost93@yahoo.de')
 
 # For all available options run `fastlane match --help`
 # Remove the # in the beginning of the line to enable the other options
