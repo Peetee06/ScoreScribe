@@ -39,17 +39,9 @@ lane :beta do
 
   match(type: 'appstore', readonly: is_ci)
 
-  sh('pwd')
-
-  sh('ls ../build/ios/archive/')
-
-  sh('ls')
-
-  sh('ls ..')
-
   build_app(
     skip_build_archive: is_ci,
-    archive_path: '../build/ios/archive/Runner.xcarchive'
+    archive_path: 'build/ios/archive/Runner.xcarchive'
   )
 
   upload_to_testflight(submit_beta_review: false, skip_submission: true, skip_waiting_for_build_processing: true)
