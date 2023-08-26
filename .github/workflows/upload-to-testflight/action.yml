@@ -56,11 +56,15 @@ runs:
         bundler-cache: true
         working-directory: "ios"
 
-    - name: Install tools
+    - name: Install pods
       working-directory: "ios"
       shell: bash
       run: |
         pod install
+
+    - name: Build flutter app
+      shell: bash
+      run: flutter build ios --release --no-codesign
 
     - name: Deploy to TestFlight
       uses: maierj/fastlane-action@v3.0.0
