@@ -56,12 +56,6 @@ runs:
         bundler-cache: true
         working-directory: "ios"
 
-    - name: Install pods
-      working-directory: "ios"
-      shell: bash
-      run: |
-        pod install
-
     - name: Build flutter app
       shell: bash
       run: flutter build ios --release --no-codesign
