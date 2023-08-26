@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -15,65 +17,34 @@
 
 default_platform(:ios)
 
-
 lane :take_screenshots do
-  Dir.chdir("../..") do
-    sh("dart", "./test_driver/emulator_runner.dart")
+  Dir.chdir('../..') do
+    sh('dart', './test_driver/emulator_runner.dart')
   end
 end
 
-desc "Description of what the lane does"
+desc 'Description of what the lane does'
 lane :custom_lane do
   # add actions here: https://docs.fastlane.tools/actions
 end
 
 lane :framescreenshots do
-  Dir.chdir("../..") do
-    frameit(path: File.expand_path("./screenshots/store/ios"))
+  Dir.chdir('../..') do
+    frameit(path: File.expand_path('./screenshots/store/ios'))
   end
 end
 
 lane :beta do
   setup_ci
 
-  api_key = app_store_connect_api_key(
-    key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
-    issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-    key_content: ENV["APP_STORE_CONNECT_KEY_CONTENT"],
-    duration: 1200,
-    in_house: false
-  )
-  match(type: "appstore")
+  match(type: 'appstore')
 
-  # Get the latest version number from the VERSION file
-  increment_version_number(
-  version_number: File.read("../../VERSION")
+  sh('flutter', 'build', 'ipa')
+
+  build_app(
+    skip_build_archive: true,
+    archive_path: '../build/ios/archive/Runner.xcarchive'
   )
 
-  # Get the latest build number from TestFlight
-  previous_build_number = latest_testflight_build_number(
-  app_identifier: 'com.trost.scorecard',
-  api_key: api_key,
-  )
-
-  # Increment the build number by 1
-  current_build_number = previous_build_number + 1
-  increment_build_number(
-    build_number: current_build_number
-  )
-
-  # build_app(scheme: "Runner")
-  gym(export_method: "app-store", scheme: "Runner")
   upload_to_testflight(submit_beta_review: false, skip_submission: true, skip_waiting_for_build_processing: true)
-
-  add_git_tag(
-    grouping: "builds",
-    includes_lane: false,
-    prefix: "ios/",
-    build_number: current_build_number,
-    force: true,
-  )
-  push_to_git_remote(
-    tags: true,
-  )
 end
