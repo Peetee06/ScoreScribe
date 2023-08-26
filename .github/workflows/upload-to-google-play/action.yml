@@ -43,7 +43,7 @@ runs:
     - name: Deploy to Google Play Internal Track
       uses: maierj/fastlane-action@v3.0.0
       with:
-        lane: "deploy_internal" # Replace with your Fastlane lane name for Google Play Internal track
+        lane: "beta"
         subdirectory: "android"
         verbose: true
       env:
