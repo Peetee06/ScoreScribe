@@ -33,10 +33,6 @@ runs:
       shell: bash
       run: flutter pub get
 
-    - name: Build APK
-      shell: bash
-      run: flutter build apk --release
-
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
