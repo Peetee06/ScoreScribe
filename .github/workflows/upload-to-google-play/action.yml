@@ -33,6 +33,10 @@ runs:
       shell: bash
       run: flutter pub get
 
+    - name: Build appbundle
+      shell: bash
+      run: flutter build appbundle
+
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
