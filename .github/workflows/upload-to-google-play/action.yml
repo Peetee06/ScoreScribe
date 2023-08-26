@@ -34,7 +34,7 @@ runs:
       run: flutter pub get
 
     - name: Build APK
-    shell: bash
+      shell: bash
       run: flutter build apk --release
 
     - name: Setup Ruby
