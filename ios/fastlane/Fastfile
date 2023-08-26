@@ -69,8 +69,11 @@ lane :beta do
   add_git_tag(
     grouping: "builds",
     includes_lane: false,
-    prefix: "ios",
+    prefix: "ios/",
     build_number: current_build_number,
     force: true,
+  )
+  push_to_git_remote(
+    tags: true,
   )
 end
