@@ -56,13 +56,9 @@ runs:
         bundler-cache: true
         working-directory: "ios"
 
-    - name: Build flutter app
+    - name: Install Pods
       shell: bash
-      run: flutter build ios --release --no-codesign
-
-    - name: Debug
-      shell: bash
-      run: ls -la /Users/runner/work/ScoreScribe/ScoreScribe/build/ios/iphoneos
+      run: bundle exec pod install
 
     - name: Deploy to TestFlight
       uses: maierj/fastlane-action@v3.0.0
