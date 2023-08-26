@@ -7,6 +7,12 @@ inputs:
   google_play_key_content:
     description: "Google Play Key Content (JSON)"
     required: true
+  google_keystore:
+    description: "Google Keystore"
+    required: true
+  google_key_properties:
+    description: "Google Key Properties"
+    required: true
 
 runs:
   using: "composite"
@@ -23,6 +29,13 @@ runs:
         key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
         restore-keys: |
           ${{ runner.os }}-flutter-
+
+    - name: Add keystore and key properties
+      shell: bash
+      working-directory: "android"
+      run: |
+        echo "${{ inputs.google_keystore }}" > upload-keystore.jks
+        echo "${{ inputs.google_key_properties }}" > key.properties
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
