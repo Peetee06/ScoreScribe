@@ -43,16 +43,13 @@ jobs:
           app_store_connect_issuer_id: ${{ secrets.APPLESTORECONNECTISSUERID }}
           match_password: ${{ secrets.MATCH_PASSWORD }}
           match_git_basic_authorization: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
-  # beta-release-android:
-  #   runs-on: ubuntu-latest
-  #   # needs: screenshot-generation
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Upload to Google Play
-  #       uses: ./.github/workflows/upload-to-google-play
-  #       with:
-  #         flutter-version: ${{ env.FLUTTER_VERSION }}
-  #         google_play_key_content: ${{ secrets.GOOGLEPLAYKEYCONTENT }}
-  #         google_play_key_password: ${{ secrets.GOOGLEPLAYKEYPASSWORD }}
-  #         google_play_service_account_email: ${{ secrets.GOOGLEPLAYSERVICEACCOUNTEMAIL }}
-  #         google_play_service_account_key: ${{ secrets.GOOGLEPLAYSERVICEACCOUNTKEY }}
+  beta-release-android:
+    runs-on: ubuntu-latest
+    # needs: screenshot-generation
+    steps:
+      - uses: actions/checkout@v3
+      - name: Upload to Google Play
+        uses: ./.github/workflows/upload-to-google-play
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          google_play_key_content: ${{ secrets.GOOGLEPLAYKEYCONTENT }}

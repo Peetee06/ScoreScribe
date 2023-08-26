@@ -1,0 +1,52 @@
+name: "Upload to Google Play"
+description: "Upload a new build to Google Play internal track"
+inputs:
+  flutter-version:
+    description: "Flutter SDK version to use"
+    required: true
+  google_play_key_content:
+    description: "Google Play Key Content (JSON)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Cache Flutter SDK
+      uses: actions/cache@v3
+      with:
+        path: |
+          /opt/hostedtoolcache/flutter
+          ~/.pub-cache
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ inputs.flutter-version }}
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.0"
+        bundler-cache: true
+        working-directory: "android"
+
+    - name: Deploy to Google Play Internal Track
+      uses: maierj/fastlane-action@v3.0.0
+      with:
+        lane: "deploy_internal" # Replace with your Fastlane lane name for Google Play Internal track
+        subdirectory: "android"
+        verbose: true
+      env:
+        GOOGLE_PLAY_KEY_CONTENT: ${{ inputs.google_play_key_content }}
