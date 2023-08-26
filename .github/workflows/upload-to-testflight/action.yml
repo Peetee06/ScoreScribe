@@ -62,7 +62,7 @@ runs:
 
     - name: Debug
       shell: bash
-      run: ls -la build/ios/iphoneos/Runner.app.xcarchive
+      run: ls -la /Users/runner/work/ScoreScribe/ScoreScribe/build/ios/iphoneos
 
     - name: Deploy to TestFlight
       uses: maierj/fastlane-action@v3.0.0
