@@ -37,9 +37,9 @@ end
 lane :beta do
   setup_ci
 
-  match(type: 'appstore')
+  sh('flutter', 'build', 'ios', '--release', '--no-codesign')
 
-  sh('flutter', 'build', 'ipa')
+  match(type: 'appstore')
 
   build_app(
     skip_build_archive: true,
