@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
-import 'package:ScoreScribe/models/game.dart';
-import 'package:ScoreScribe/models/player_score.dart';
-import 'package:ScoreScribe/providers/games_provider.dart';
-import 'package:ScoreScribe/screens/scoreboard.dart';
-import 'package:ScoreScribe/widgets/animated_arrow_right_to_left.dart';
+import 'package:scorescribe/models/game.dart';
+import 'package:scorescribe/models/player_score.dart';
+import 'package:scorescribe/providers/games_provider.dart';
+import 'package:scorescribe/screens/scoreboard.dart';
+import 'package:scorescribe/widgets/animated_arrow_right_to_left.dart';
 
 import '../models/round.dart';
 

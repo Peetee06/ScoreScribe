@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ScoreScribe/models/game.dart';
-import 'package:ScoreScribe/models/round.dart';
+import 'package:scorescribe/models/game.dart';
+import 'package:scorescribe/models/round.dart';
 
 void main() {
   group('Game', () {

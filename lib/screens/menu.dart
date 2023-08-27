@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ScoreScribe/screens/about.dart';
+import 'package:scorescribe/screens/about.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});

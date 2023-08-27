@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ScoreScribe/models/game.dart';
-import 'package:ScoreScribe/providers/games_provider.dart';
-import 'package:ScoreScribe/widgets/games_list.dart';
+import 'package:scorescribe/models/game.dart';
+import 'package:scorescribe/providers/games_provider.dart';
+import 'package:scorescribe/widgets/games_list.dart';
 
 class Games extends ConsumerStatefulWidget {
   const Games({super.key});
