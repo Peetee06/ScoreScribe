@@ -10,8 +10,8 @@ inputs:
   google_keystore:
     description: "Google Keystore"
     required: true
-  google_key_properties:
-    description: "Google Key Properties"
+  play_store_config_json:
+    description: "Play Store Config JSON"
     required: true
 
 runs:
