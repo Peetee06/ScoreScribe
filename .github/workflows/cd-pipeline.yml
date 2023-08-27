@@ -4,11 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-      - feature/beta_releases
-  pull_request:
-    branches:
-      - main
+      - develop
 
 env:
   FLUTTER_VERSION: 3.10.6
