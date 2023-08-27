@@ -4,14 +4,14 @@ inputs:
   flutter-version:
     description: "Flutter SDK version to use"
     required: true
-  google_play_key_content:
-    description: "Google Play Key Content (JSON)"
+  play_store_config_json:
+    description: "Play Store Config JSON"
     required: true
   google_keystore:
     description: "Google Keystore"
     required: true
-  play_store_config_json:
-    description: "Play Store Config JSON"
+  google_key_properties:
+    description: "Google Key Properties"
     required: true
 
 runs:
