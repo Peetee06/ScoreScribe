@@ -9,7 +9,7 @@ runs:
       shell: bash
       run: |
         # Parse the old build version
-        OLD_VERSION=$(grep 'version: ' ../../pubspec.yaml | awk '{print $2}')
+        OLD_VERSION=$(grep 'version: ' pubspec.yaml | awk '{print $2}')
         # Extract the build version (split by +)
         BUILD_VERSION=$(echo $OLD_VERSION | awk -F "+" '{print $2}')
         # Increment the build version
@@ -17,10 +17,10 @@ runs:
         # Form the new version
         NEW_VERSION=$(echo $OLD_VERSION | awk -F "+" '{print $1}')+$NEW_BUILD_VERSION
         # Update the version in pubspec.yaml
-        sed -i "s/version: $OLD_VERSION/version: $NEW_VERSION/" ../../pubspec.yaml
+        sed -i "s/version: $OLD_VERSION/version: $NEW_VERSION/" pubspec.yaml
         # Commit and push
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add ../../pubspec.yaml
+        git add pubspec.yaml
         git commit -m "Bump version to $NEW_VERSION [skip ci]"
         git push origin ${GITHUB_REF}
