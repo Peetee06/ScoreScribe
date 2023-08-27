@@ -30,12 +30,15 @@ runs:
         restore-keys: |
           ${{ runner.os }}-flutter-
 
-    - name: Add keystore and key properties
+    - name: Decode keystore
       shell: bash
       working-directory: "android"
-      run: |
-        echo "${{ inputs.google_keystore }}" | base64 --decode > upload-keystore.jks
-        echo "${{ inputs.google_key_properties }}" | base64 --decode > key.properties
+      run: echo "${{ inputs.google_keystore }}" | base64 --decode > upload-keystore.jks
+
+    - name: Decode key.properties
+      shell: bash
+      working-directory: "android"
+      run: echo "${{ inputs.google_key_properties }}" | base64 --decode > key.properties
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
