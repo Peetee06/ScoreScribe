@@ -54,4 +54,4 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           google_play_key_content: ${{ secrets.GOOGLEPLAYKEYCONTENT }}
           google_keystore: ${{ secrets.GOOGLE_KEYSTORE }}
-          google_key_properties: $${{ secrets.GOOGLE_KEY_PROPERTIES }}
+          google_key_properties: ${{ secrets.GOOGLE_KEY_PROPERTIES }}
