@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:scorecard/models/round.dart';
-import 'package:scorecard/utils/uuid_helper.dart';
+import 'package:scorescribe/models/round.dart';
+import 'package:scorescribe/utils/uuid_helper.dart';
 
 class Game {
   final String id;

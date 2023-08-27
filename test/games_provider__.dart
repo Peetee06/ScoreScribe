@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:scorecard/models/game.dart';
-import 'package:scorecard/utils/database_helper.dart';
-import 'package:scorecard/providers/games_provider.dart';
+import 'package:scorescribe/models/game.dart';
+import 'package:scorescribe/utils/database_helper.dart';
+import 'package:scorescribe/providers/games_provider.dart';
 
 class MockDatabaseHelper extends Mock implements DatabaseHelper {}
 

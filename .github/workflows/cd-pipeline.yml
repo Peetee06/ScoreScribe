@@ -4,11 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-      - feature/actions_screenshot_generation
-  pull_request:
-    branches:
-      - main
+      - develop
 
 env:
   FLUTTER_VERSION: 3.10.6
@@ -19,12 +15,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  screenshot-generation:
+  # screenshot-generation:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Create screenshots
+  #       uses: ./.github/workflows/screenshot-generation-action
+  #       with:
+  #         flutter-version: ${{ env.FLUTTER_VERSION }}
+  #         java-version: ${{ env.JAVA_VERSION }}
+
+  beta-release-ios:
     runs-on: macos-latest
+    # needs: screenshot-generation
     steps:
       - uses: actions/checkout@v3
-      - name: Create screenshots
-        uses: ./.github/workflows/screenshot-generation-action
+      - name: Upload to TestFlight
+        uses: ./.github/workflows/upload-to-testflight
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          java-version: ${{ env.JAVA_VERSION }}
+          apple_application_specific_password: ${{ secrets.APPLE_APPLICATION_SPECIFIC_PASSWORD_SCORESCRIBE }}
+          app_store_connect_key_content: ${{ secrets.APPLESTORECONNECTAPIKEY }}
+          app_store_connect_issuer_id: ${{ secrets.APPLESTORECONNECTISSUERID }}
+          match_password: ${{ secrets.MATCH_PASSWORD }}
+          match_git_basic_authorization: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+  beta-release-android:
+    runs-on: ubuntu-latest
+    # needs: screenshot-generation
+    steps:
+      - uses: actions/checkout@v3
+      - name: Upload to Google Play
+        uses: ./.github/workflows/upload-to-google-play
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          play_store_config_json: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
+          google_keystore: ${{ secrets.GOOGLE_KEYSTORE }}
+          google_key_properties: ${{ secrets.GOOGLE_KEY_PROPERTIES }}

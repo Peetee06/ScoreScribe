@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:scorecard/models/game.dart';
-import 'package:scorecard/providers/games_provider.dart';
-import 'package:scorecard/screens/game.dart';
-import 'package:scorecard/widgets/alerts/leave_new_game_screen.dart';
-import 'package:scorecard/widgets/alerts/new_game_missing_input_alert.dart';
+import 'package:scorescribe/models/game.dart';
+import 'package:scorescribe/providers/games_provider.dart';
+import 'package:scorescribe/screens/game.dart';
+import 'package:scorescribe/widgets/alerts/leave_new_game_screen.dart';
+import 'package:scorescribe/widgets/alerts/new_game_missing_input_alert.dart';
 
 class NewGameScreen extends ConsumerStatefulWidget {
   const NewGameScreen({super.key});

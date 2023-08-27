@@ -21,36 +21,26 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-----
-
-
-## iOS
-
-### ios custom_lane
+### custom_lane
 
 ```sh
-[bundle exec] fastlane ios custom_lane
+[bundle exec] fastlane custom_lane
 ```
 
 Description of what the lane does
 
-### ios framescreenshots
+### framescreenshots
 
 ```sh
-[bundle exec] fastlane ios framescreenshots
+[bundle exec] fastlane framescreenshots
 ```
 
 
 
-----
-
-
-## Android
-
-### android framescreenshots
+### beta
 
 ```sh
-[bundle exec] fastlane android framescreenshots
+[bundle exec] fastlane beta
 ```
 
 

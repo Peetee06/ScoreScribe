@@ -1,0 +1,75 @@
+name: "Upload to Google Play"
+description: "Upload a new build to Google Play internal track"
+inputs:
+  flutter-version:
+    description: "Flutter SDK version to use"
+    required: true
+  play_store_config_json:
+    description: "Play Store Config JSON"
+    required: true
+  google_keystore:
+    description: "Google Keystore"
+    required: true
+  google_key_properties:
+    description: "Google Key Properties"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Cache Flutter SDK
+      uses: actions/cache@v3
+      with:
+        path: |
+          /opt/hostedtoolcache/flutter
+          ~/.pub-cache
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
+    - name: Decode keystore
+      shell: bash
+      working-directory: "android"
+      run: echo "${{ inputs.google_keystore }}" | base64 --decode > upload-keystore.jks
+
+    - name: Decode key.properties
+      shell: bash
+      working-directory: "android"
+      run: echo "${{ inputs.google_key_properties }}" | base64 --decode > key.properties
+
+    - name: Decode Play Store Config JSON
+      shell: bash
+      working-directory: "android"
+      run: echo "${{ inputs.play_store_config_json }}" | base64 --decode > google_keys.json
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ inputs.flutter-version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: flutter pub get
+
+    - name: Build appbundle
+      shell: bash
+      run: flutter build appbundle
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.0"
+        bundler-cache: true
+        working-directory: "android"
+
+    - name: Deploy to Google Play Internal Track
+      uses: maierj/fastlane-action@v3.0.0
+      with:
+        lane: "beta"
+        subdirectory: "android"
+        verbose: true
+      env:
+        PLAY_STORE_CONFIG_JSON: ${{ inputs.play_store_config_json }}

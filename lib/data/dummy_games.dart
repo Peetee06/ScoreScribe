@@ -1,5 +1,5 @@
-import 'package:scorecard/models/game.dart';
-import 'package:scorecard/models/round.dart';
+import 'package:scorescribe/models/game.dart';
+import 'package:scorescribe/models/round.dart';
 
 final List<Game> dummyGames = [
   Game(
