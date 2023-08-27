@@ -1,0 +1,26 @@
+name: "Bump Flutter Build Version"
+description: "Automatically bump the Flutter build version in pubspec.yaml"
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Bump version and push
+      shell: bash
+      run: |
+        # Parse the old build version
+        OLD_VERSION=$(grep 'version: ' ../../pubspec.yaml | awk '{print $2}')
+        # Extract the build version (split by +)
+        BUILD_VERSION=$(echo $OLD_VERSION | awk -F "+" '{print $2}')
+        # Increment the build version
+        NEW_BUILD_VERSION=$((BUILD_VERSION + 1))
+        # Form the new version
+        NEW_VERSION=$(echo $OLD_VERSION | awk -F "+" '{print $1}')+$NEW_BUILD_VERSION
+        # Update the version in pubspec.yaml
+        sed -i "s/version: $OLD_VERSION/version: $NEW_VERSION/" ../../pubspec.yaml
+        # Commit and push
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ../../pubspec.yaml
+        git commit -m "Bump version to $NEW_VERSION [skip ci]"
+        git push origin ${GITHUB_REF}
