@@ -67,4 +67,4 @@ runs:
         subdirectory: "android"
         verbose: true
       env:
-        GOOGLE_PLAY_KEY_CONTENT: ${{ inputs.google_play_key_content }}
+        PLAY_STORE_CONFIG_JSON: ${{ inputs.play_store_config_json }}
