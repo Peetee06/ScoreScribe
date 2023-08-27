@@ -40,6 +40,11 @@ runs:
       working-directory: "android"
       run: echo "${{ inputs.google_key_properties }}" | base64 --decode > key.properties
 
+    - name: Decode Play Store Config JSON
+      shell: bash
+      working-directory: "android"
+      run: echo "${{ inputs.play_store_config_json }}" | base64 --decode > google_keys.json
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
