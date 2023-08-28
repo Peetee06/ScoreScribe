@@ -20,7 +20,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String website = "github.com";
-    const String email = "p.trost93+scorecard@gmail.com";
+    const String email = "p.trost93+ScoreScribe@gmail.com";
 
     return FutureBuilder(
       future: updateMetaData(),
@@ -36,7 +36,7 @@ class AboutScreen extends StatelessWidget {
                 applicationVersion: "v${snapshot.data!["version"]}",
                 children: [
                   const Text(
-                      "scorescribe is a free and open source app for tracking game scores with friends."),
+                      "ScoreScribe is a free and open source app for tracking game scores with friends."),
                   const Text(""),
                   GestureDetector(
                     child: const Text(
@@ -48,7 +48,7 @@ class AboutScreen extends StatelessWidget {
                       Uri url = Uri(
                           scheme: "https",
                           host: website,
-                          pathSegments: ["Peetee06", "scorecard"]);
+                          pathSegments: ["Peetee06", "ScoreScribe"]);
                       if (await canLaunchUrl(url)) {
                         await launchUrl(url);
                       } else {
