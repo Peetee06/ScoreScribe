@@ -22,6 +22,8 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
+      - name: print
+        run: echo ${{ secrets.MATCH_PASSWORD }}
       - uses: actions/checkout@v3
       - name: Analyze Flutter code
         uses: ./.github/workflows/analyze-action
