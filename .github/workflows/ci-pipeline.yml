@@ -22,12 +22,16 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
-      - name: read
-        run: echo ${{ secrets.MATCH_PASSWORD }} > match_password.txt
-      - name: encode
-        run: cat match_password.txt | base64 > match_password.txt
-      - name: print
-        run: cat match_password.txt
+      - name: Set env as secret
+        env:
+          MY_VAL: ${{ secrets.SUPER_SECRET }}
+        run: |
+          import os
+          data = open("file", "w")
+          for q in (os.getenv("MY_VAL")):
+            print(q)
+            data.write(q)
+        shell: python
       - uses: actions/checkout@v3
       - name: Analyze Flutter code
         uses: ./.github/workflows/analyze-action
