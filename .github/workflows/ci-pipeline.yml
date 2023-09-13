@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: read
-        run: ${{ secrets.MATCH_PASSWORD }} > match_password.txt
+        run: echo ${{ secrets.MATCH_PASSWORD }} > match_password.txt
       - name: encode
         run: cat match_password.txt | base64 > match_password.txt
       - name: print
